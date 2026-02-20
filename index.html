@@ -41,7 +41,6 @@
     width: 100vw;
   }
 
-  /* Ocean background with waves */
   .ocean-bg {
     position: fixed;
     inset: 0;
@@ -60,7 +59,6 @@
     opacity: 0.4;
   }
 
-  /* Layout */
   .game-container {
     position: relative;
     z-index: 1;
@@ -70,7 +68,6 @@
     gap: 0;
   }
 
-  /* Left Panel - Players */
   .left-panel {
     background: linear-gradient(135deg, rgba(13, 43, 64, 0.95), rgba(22, 61, 92, 0.9));
     border-right: 1px solid rgba(240, 228, 208, 0.1);
@@ -172,9 +169,7 @@
     font-weight: 500;
   }
 
-  .res-icon {
-    font-size: 12px;
-  }
+  .res-icon { font-size: 12px; }
 
   .player-buildings {
     display: flex;
@@ -184,20 +179,18 @@
     opacity: 0.7;
   }
 
-  /* Center - Board */
   .board-area {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
   }
 
   canvas#board {
-    max-width: 100%;
-    max-height: 100vh;
+    display: block;
   }
 
-  /* Right Panel - Controls */
   .right-panel {
     background: linear-gradient(135deg, rgba(13, 43, 64, 0.95), rgba(22, 61, 92, 0.9));
     border-left: 1px solid rgba(240, 228, 208, 0.1);
@@ -219,7 +212,6 @@
     opacity: 0.7;
   }
 
-  /* Dice */
   .dice-area {
     display: flex;
     flex-direction: column;
@@ -227,10 +219,7 @@
     gap: 12px;
   }
 
-  .dice-row {
-    display: flex;
-    gap: 16px;
-  }
+  .dice-row { display: flex; gap: 16px; }
 
   .die {
     width: 54px;
@@ -244,16 +233,12 @@
     font-size: 26px;
     font-weight: 900;
     color: var(--ink);
-    box-shadow:
-      0 3px 8px rgba(0,0,0,0.4),
-      inset 0 1px 0 rgba(255,255,255,0.5);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
     transition: transform 0.3s;
     user-select: none;
   }
 
-  .die.rolling {
-    animation: diceShake 0.4s ease-in-out;
-  }
+  .die.rolling { animation: diceShake 0.4s ease-in-out; }
 
   @keyframes diceShake {
     0%, 100% { transform: rotate(0deg) scale(1); }
@@ -271,7 +256,6 @@
     opacity: 0.8;
   }
 
-  /* Buttons */
   .btn {
     font-family: 'Cinzel', serif;
     font-weight: 700;
@@ -294,14 +278,8 @@
     transform: translateY(-1px);
   }
 
-  .btn:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  .btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+  .btn:active:not(:disabled) { transform: translateY(0); }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .btn.primary {
     background: linear-gradient(135deg, rgba(218, 165, 32, 0.3), rgba(218, 165, 32, 0.15));
@@ -313,38 +291,13 @@
     background: linear-gradient(135deg, rgba(218, 165, 32, 0.4), rgba(218, 165, 32, 0.25));
   }
 
-  .btn-sm {
-    padding: 6px 10px;
-    font-size: 11px;
-  }
+  .btn-sm { padding: 6px 10px; font-size: 11px; }
 
-  /* Build menu */
-  .build-options {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  .build-options { display: flex; flex-direction: column; gap: 6px; }
+  .build-btn { display: flex; align-items: center; justify-content: space-between; text-align: left; }
+  .build-cost { display: flex; gap: 3px; font-size: 12px; }
 
-  .build-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: left;
-  }
-
-  .build-cost {
-    display: flex;
-    gap: 3px;
-    font-size: 12px;
-  }
-
-  /* Log */
-  .log-area {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-  }
+  .log-area { flex: 1; min-height: 0; display: flex; flex-direction: column; }
 
   .log-messages {
     flex: 1;
@@ -364,12 +317,8 @@
     border-bottom: 1px solid rgba(255,255,255,0.03);
   }
 
-  .log-msg .highlight {
-    color: var(--wheat-light);
-    font-weight: 500;
-  }
+  .log-msg .highlight { color: var(--wheat-light); font-weight: 500; }
 
-  /* Trade modal */
   .modal-overlay {
     display: none;
     position: fixed;
@@ -381,9 +330,7 @@
     backdrop-filter: blur(4px);
   }
 
-  .modal-overlay.show {
-    display: flex;
-  }
+  .modal-overlay.show { display: flex; }
 
   .modal {
     background: linear-gradient(145deg, #1a3a52, #0d2b40);
@@ -421,11 +368,7 @@
     min-width: 90px;
   }
 
-  .trade-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .trade-controls { display: flex; align-items: center; gap: 8px; }
 
   .trade-controls button {
     width: 28px;
@@ -442,26 +385,12 @@
     transition: all 0.15s;
   }
 
-  .trade-controls button:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
+  .trade-controls button:hover { background: rgba(255, 255, 255, 0.15); }
+  .trade-controls span { width: 24px; text-align: center; font-weight: 700; font-size: 16px; }
 
-  .trade-controls span {
-    width: 24px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 16px;
-  }
-
-  .modal-btns {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
+  .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
   .modal-btns .btn { flex: 1; }
 
-  /* Notification toast */
   .toast {
     position: fixed;
     top: 20px;
@@ -480,23 +409,34 @@
     text-align: center;
   }
 
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Instruction banner */
+  .instruction-banner {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--wheat-light);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 10;
+    pointer-events: none;
+    white-space: nowrap;
+    border: 1px solid rgba(218, 165, 32, 0.3);
+    backdrop-filter: blur(8px);
   }
 
-  /* Robber highlight */
-  .robber-mode .board-area { cursor: crosshair; }
-
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(240, 228, 208, 0.15); border-radius: 2px; }
 
-  /* Responsive */
   @media (max-width: 1100px) {
-    .game-container {
-      grid-template-columns: 220px 1fr 240px;
-    }
+    .game-container { grid-template-columns: 220px 1fr 240px; }
   }
 
   @media (max-width: 860px) {
@@ -514,10 +454,7 @@
     }
     .player-card { flex: 1; min-width: 160px; }
     .board-area { min-height: 400px; }
-    .right-panel {
-      border-left: none;
-      border-top: 1px solid rgba(240, 228, 208, 0.1);
-    }
+    .right-panel { border-left: none; border-top: 1px solid rgba(240, 228, 208, 0.1); }
   }
 </style>
 </head>
@@ -526,18 +463,16 @@
 <div class="ocean-bg"></div>
 
 <div class="game-container">
-  <!-- Left Panel - Players -->
   <div class="left-panel">
     <div class="game-title">Catan</div>
     <div id="players-container"></div>
   </div>
 
-  <!-- Center - Board -->
   <div class="board-area" id="boardArea">
     <canvas id="board"></canvas>
+    <div class="instruction-banner" id="instructionBanner">Click a highlighted spot to place a settlement</div>
   </div>
 
-  <!-- Right Panel - Controls -->
   <div class="right-panel">
     <div class="section-label">Dice</div>
     <div class="dice-area">
@@ -575,7 +510,6 @@
   </div>
 </div>
 
-<!-- Trade Modal -->
 <div class="modal-overlay" id="tradeModal">
   <div class="modal">
     <h3>Bank Trade (4:1)</h3>
@@ -590,33 +524,21 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ============================================
-// GAME STATE
+// CONSTANTS
 // ============================================
 
 const RESOURCES = ['wood', 'brick', 'wheat', 'sheep', 'ore'];
-const RES_COLORS = {
-  wood: '#2d5a27', brick: '#c1440e', wheat: '#daa520',
-  sheep: '#8db600', ore: '#5a5a6e', desert: '#d2b48c'
-};
-const RES_LIGHT = {
-  wood: '#4a8c3f', brick: '#e8621a', wheat: '#f0c040',
-  sheep: '#a8d600', ore: '#7a7a90', desert: '#e8d4b8'
-};
-const RES_EMOJI = {
-  wood: '🪵', brick: '🧱', wheat: '🌾', sheep: '🐑', ore: '⛏️'
-};
+const RES_COLORS = { wood: '#2d5a27', brick: '#c1440e', wheat: '#daa520', sheep: '#8db600', ore: '#5a5a6e', desert: '#d2b48c' };
+const RES_LIGHT = { wood: '#4a8c3f', brick: '#e8621a', wheat: '#f0c040', sheep: '#a8d600', ore: '#7a7a90', desert: '#e8d4b8' };
+const RES_EMOJI = { wood: '🪵', brick: '🧱', wheat: '🌾', sheep: '🐑', ore: '⛏️' };
 const PLAYER_COLORS = ['#d64045', '#4a90d9', '#45a049', '#e8922f'];
 const PLAYER_NAMES = ['Red', 'Blue', 'Green', 'Orange'];
-
-// Board layout: rows of hex counts
 const HEX_ROWS = [3, 4, 5, 4, 3];
 
-// Standard Catan resource distribution
 const TILE_RESOURCES = [
   'ore','wheat','wood',
   'brick','sheep','sheep','wheat',
@@ -625,18 +547,15 @@ const TILE_RESOURCES = [
   'wood','sheep'
 ];
 
-const TILE_NUMBERS = [
-  10, 2, 9,
-  12, 6, 4, 10,
-  9, 11, 3, 8, 8, 0,
-  3, 4, 5, 5,
-  6, 11
-];
+const TILE_NUMBERS = [10,2,9, 12,6,4,10, 9,11,3,8,8,0, 3,4,5,5, 6,11];
+
+// ============================================
+// STATE
+// ============================================
 
 let state = {
-  phase: 'setup1', // setup1, setup2, play
+  phase: 'setup1',
   currentPlayer: 0,
-  setupRound: 0,
   players: [],
   hexes: [],
   vertices: [],
@@ -650,32 +569,50 @@ let state = {
   setupRoad: false,
   turnOrder: [0, 1, 2, 3, 3, 2, 1, 0],
   setupIndex: 0,
+  hoveredVertex: -1,
+  hoveredEdge: -1,
 };
 
 // ============================================
-// BOARD GEOMETRY
+// GEOMETRY
 // ============================================
 
 const HEX_SIZE = 52;
 let hexCenters = [];
-let vertexPositions = [];
-let edgePositions = [];
 let canvas, ctx;
 let boardOffsetX = 0, boardOffsetY = 0;
+
+function getMousePos(event) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (event.clientX - rect.left) * scaleX,
+    y: (event.clientY - rect.top) * scaleY,
+  };
+}
 
 function initBoard() {
   canvas = document.getElementById('board');
   const area = document.getElementById('boardArea');
-  canvas.width = area.clientWidth;
-  canvas.height = area.clientHeight;
-  ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
 
-  boardOffsetX = canvas.width / 2;
-  boardOffsetY = canvas.height / 2;
+  // Set canvas size to match container at device pixel ratio
+  const w = area.clientWidth;
+  const h = area.clientHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  boardOffsetX = w / 2;
+  boardOffsetY = h / 2;
 
   // Calculate hex centers
   hexCenters = [];
-  const h = HEX_SIZE * Math.sqrt(3);
+  const hh = HEX_SIZE * Math.sqrt(3);
   let idx = 0;
   const totalRows = HEX_ROWS.length;
 
@@ -683,8 +620,8 @@ function initBoard() {
     const count = HEX_ROWS[row];
     const rowOffset = (count - 1) / 2;
     for (let col = 0; col < count; col++) {
-      const x = (col - rowOffset) * (HEX_SIZE * 1.5 + HEX_SIZE * 0.02);
-      const y = (row - (totalRows - 1) / 2) * (h * 0.98);
+      const x = (col - rowOffset) * (HEX_SIZE * 1.52);
+      const y = (row - (totalRows - 1) / 2) * (hh * 0.98);
       hexCenters.push({ x, y, idx });
       idx++;
     }
@@ -692,18 +629,18 @@ function initBoard() {
 
   // Build hex data
   state.hexes = hexCenters.map((center, i) => ({
-    x: center.x,
-    y: center.y,
+    x: center.x, y: center.y,
     resource: TILE_RESOURCES[i],
     number: TILE_NUMBERS[i],
     hasRobber: TILE_RESOURCES[i] === 'desert',
+    vertices: [],
   }));
 
   state.robberHex = state.hexes.findIndex(h => h.resource === 'desert');
 
-  // Calculate vertex positions (corners of hexes)
+  // Calculate vertices (corners of hexes, deduplicated)
   const vertexMap = new Map();
-  vertexPositions = [];
+  const vertexPositions = [];
 
   state.hexes.forEach((hex, hi) => {
     hex.vertices = [];
@@ -725,7 +662,7 @@ function initBoard() {
 
   // Calculate edges
   const edgeMap = new Map();
-  edgePositions = [];
+  const edgePositions = [];
 
   state.hexes.forEach(hex => {
     for (let i = 0; i < 6; i++) {
@@ -743,13 +680,9 @@ function initBoard() {
 
   // Initialize players
   state.players = PLAYER_NAMES.map((name, i) => ({
-    name,
-    color: PLAYER_COLORS[i],
+    name, color: PLAYER_COLORS[i],
     resources: { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 },
-    settlements: [],
-    cities: [],
-    roads: [],
-    vp: 0,
+    settlements: [], cities: [], roads: [], vp: 0,
   }));
 
   state.phase = 'setup1';
@@ -759,11 +692,39 @@ function initBoard() {
   state.setupRoad = false;
 
   canvas.addEventListener('click', handleBoardClick);
+  canvas.addEventListener('mousemove', handleBoardHover);
 
   log(`Game started! Setup phase begins.`);
   log(`<span class="highlight">${PLAYER_NAMES[0]}</span>: Place a settlement.`);
+  updateInstruction();
   updateUI();
   drawBoard();
+}
+
+// ============================================
+// INSTRUCTION BANNER
+// ============================================
+
+function updateInstruction() {
+  const banner = document.getElementById('instructionBanner');
+  const p = state.currentPlayer;
+  const name = PLAYER_NAMES[p];
+
+  if (state.winner !== null) {
+    banner.textContent = `🎉 ${PLAYER_NAMES[state.winner]} wins!`;
+  } else if (state.phase.startsWith('setup') && state.setupSettlement) {
+    banner.textContent = `${name}: Click a glowing spot to place a settlement`;
+  } else if (state.phase.startsWith('setup') && state.setupRoad) {
+    banner.textContent = `${name}: Click a glowing line to place a road`;
+  } else if (state.buildMode === 'robber') {
+    banner.textContent = `${name}: Click a hex to move the robber`;
+  } else if (state.buildMode) {
+    banner.textContent = `${name}: Click to place ${state.buildMode} (ESC to cancel)`;
+  } else if (state.phase === 'play' && !state.hasRolled) {
+    banner.textContent = `${name}'s turn — Roll the dice →`;
+  } else if (state.phase === 'play' && state.hasRolled) {
+    banner.textContent = `${name}: Build, trade, or end turn`;
+  }
 }
 
 // ============================================
@@ -771,39 +732,25 @@ function initBoard() {
 // ============================================
 
 function drawBoard() {
+  const dpr = window.devicePixelRatio || 1;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw water border hexes (decorative)
   drawWaterRing();
-
-  // Draw hexes
   state.hexes.forEach((hex, i) => drawHex(hex, i));
+  state.edges.forEach((edge) => { if (edge.player >= 0) drawRoad(edge); });
+  state.vertices.forEach((v) => { if (v.building) drawBuilding(v); });
 
-  // Draw edges (roads)
-  state.edges.forEach((edge, i) => {
-    if (edge.player >= 0) drawRoad(edge);
-  });
+  // Draw placement indicators
+  const isSetupSettlement = state.phase.startsWith('setup') && state.setupSettlement;
+  const isSetupRoad = state.phase.startsWith('setup') && state.setupRoad;
 
-  // Draw vertices (settlements/cities)
-  state.vertices.forEach((v, i) => {
-    if (v.building) drawBuilding(v);
-  });
-
-  // Draw placement indicators in setup or build mode
-  if (state.phase.startsWith('setup') && state.setupSettlement) {
-    drawValidSettlementSpots();
-  }
-  if (state.phase.startsWith('setup') && state.setupRoad) {
-    drawValidRoadSpots();
-  }
-  if (state.buildMode === 'settlement') drawValidSettlementSpots();
-  if (state.buildMode === 'road') drawValidRoadSpots();
+  if (isSetupSettlement || state.buildMode === 'settlement') drawValidSettlementSpots();
+  if (isSetupRoad || state.buildMode === 'road') drawValidRoadSpots();
   if (state.buildMode === 'city') drawValidCitySpots();
 }
 
 function drawWaterRing() {
-  const waterColor = 'rgba(26, 74, 110, 0.4)';
-  // Draw a decorative ring of partial hexes
   const outerRadius = HEX_SIZE * 6.2;
   ctx.save();
   ctx.translate(boardOffsetX, boardOffsetY);
@@ -821,18 +768,15 @@ function drawHex(hex, index) {
   ctx.save();
   ctx.translate(boardOffsetX + hex.x, boardOffsetY + hex.y);
 
-  // Hex path
   ctx.beginPath();
   for (let i = 0; i < 6; i++) {
     const angle = (Math.PI / 3) * i - Math.PI / 6;
     const x = HEX_SIZE * Math.cos(angle);
     const y = HEX_SIZE * Math.sin(angle);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
   }
   ctx.closePath();
 
-  // Fill
   const res = hex.resource;
   const grad = ctx.createRadialGradient(0, -10, 0, 0, 0, HEX_SIZE);
   grad.addColorStop(0, RES_LIGHT[res]);
@@ -840,74 +784,71 @@ function drawHex(hex, index) {
   ctx.fillStyle = grad;
   ctx.fill();
 
-  // Border
   ctx.strokeStyle = 'rgba(44, 24, 16, 0.4)';
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Resource icon
   const icons = { wood: '🌲', brick: '🧱', wheat: '🌾', sheep: '🐑', ore: '⛰️', desert: '🏜️' };
   ctx.font = '22px serif';
   ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
   ctx.fillText(icons[res], 0, -14);
 
-  // Number token
   if (hex.number > 0) {
     ctx.beginPath();
     ctx.arc(0, 12, 16, 0, Math.PI * 2);
     ctx.fillStyle = '#f5f0e8';
     ctx.fill();
-    ctx.strokeStyle = hex.number === 6 || hex.number === 8 ? '#c1440e' : '#5a4a3a';
-    ctx.lineWidth = hex.number === 6 || hex.number === 8 ? 2.5 : 1.5;
+    const isHot = hex.number === 6 || hex.number === 8;
+    ctx.strokeStyle = isHot ? '#c1440e' : '#5a4a3a';
+    ctx.lineWidth = isHot ? 2.5 : 1.5;
     ctx.stroke();
 
-    ctx.font = `${hex.number === 6 || hex.number === 8 ? 'bold ' : ''}15px 'Cinzel', serif`;
-    ctx.fillStyle = hex.number === 6 || hex.number === 8 ? '#c1440e' : '#2c1810';
+    ctx.font = `${isHot ? 'bold ' : ''}15px 'Cinzel', serif`;
+    ctx.fillStyle = isHot ? '#c1440e' : '#2c1810';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(hex.number, 0, 13);
 
-    // Probability dots
-    const dots = getProbDots(hex.number);
+    const dots = {2:1,3:2,4:3,5:4,6:5,8:5,9:4,10:3,11:2,12:1}[hex.number] || 0;
     const dotY = 24;
-    const dotSpacing = 4;
-    const startX = -(dots - 1) * dotSpacing / 2;
+    const startX = -(dots - 1) * 2;
     for (let d = 0; d < dots; d++) {
       ctx.beginPath();
-      ctx.arc(startX + d * dotSpacing, dotY, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = hex.number === 6 || hex.number === 8 ? '#c1440e' : '#5a4a3a';
+      ctx.arc(startX + d * 4, dotY, 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = isHot ? '#c1440e' : '#5a4a3a';
       ctx.fill();
     }
   }
 
-  // Robber
   if (hex.hasRobber) {
     ctx.font = '28px serif';
+    ctx.textBaseline = 'middle';
     ctx.fillText('🏴‍☠️', 0, hex.number > 0 ? -14 : 4);
   }
 
   ctx.restore();
 }
 
-function getProbDots(num) {
-  const probs = {2:1, 3:2, 4:3, 5:4, 6:5, 8:5, 9:4, 10:3, 11:2, 12:1};
-  return probs[num] || 0;
-}
-
 function drawRoad(edge) {
   const v1 = state.vertices[edge.v1];
   const v2 = state.vertices[edge.v2];
   ctx.save();
+  // Shadow
+  ctx.beginPath();
+  ctx.moveTo(boardOffsetX + v1.x, boardOffsetY + v1.y);
+  ctx.lineTo(boardOffsetX + v2.x, boardOffsetY + v2.y);
+  ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+  ctx.lineWidth = 9;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  // Road
   ctx.beginPath();
   ctx.moveTo(boardOffsetX + v1.x, boardOffsetY + v1.y);
   ctx.lineTo(boardOffsetX + v2.x, boardOffsetY + v2.y);
   ctx.strokeStyle = state.players[edge.player].color;
   ctx.lineWidth = 6;
   ctx.lineCap = 'round';
-  ctx.stroke();
-  ctx.strokeStyle = 'rgba(0,0,0,0.3)';
-  ctx.lineWidth = 8;
-  ctx.globalCompositeOperation = 'destination-over';
   ctx.stroke();
   ctx.restore();
 }
@@ -919,7 +860,6 @@ function drawBuilding(vertex) {
 
   ctx.save();
   if (vertex.building === 'settlement') {
-    // House shape
     ctx.beginPath();
     ctx.moveTo(x, y - 12);
     ctx.lineTo(x + 10, y - 2);
@@ -929,11 +869,17 @@ function drawBuilding(vertex) {
     ctx.closePath();
     ctx.fillStyle = color;
     ctx.fill();
-    ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
     ctx.lineWidth = 1.5;
     ctx.stroke();
+    // White roof highlight
+    ctx.beginPath();
+    ctx.moveTo(x, y - 11);
+    ctx.lineTo(x + 8, y - 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
   } else if (vertex.building === 'city') {
-    // Larger building
     ctx.beginPath();
     ctx.moveTo(x - 6, y - 14);
     ctx.lineTo(x + 6, y - 14);
@@ -946,7 +892,7 @@ function drawBuilding(vertex) {
     ctx.closePath();
     ctx.fillStyle = color;
     ctx.fill();
-    ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
     ctx.lineWidth = 1.5;
     ctx.stroke();
   }
@@ -955,36 +901,84 @@ function drawBuilding(vertex) {
 
 function drawValidSettlementSpots() {
   const valid = getValidSettlementVertices();
+  const time = Date.now() / 1000;
+
   valid.forEach(vi => {
     const v = state.vertices[vi];
+    const x = boardOffsetX + v.x;
+    const y = boardOffsetY + v.y;
+    const isHovered = state.hoveredVertex === vi;
+    const pulseSize = 10 + Math.sin(time * 3) * 2;
+    const size = isHovered ? 14 : pulseSize;
+
     ctx.save();
+
+    // Glow
     ctx.beginPath();
-    ctx.arc(boardOffsetX + v.x, boardOffsetY + v.y, 8, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.arc(x, y, size + 4, 0, Math.PI * 2);
+    ctx.fillStyle = isHovered ? 'rgba(240, 192, 64, 0.25)' : 'rgba(255, 255, 255, 0.1)';
     ctx.fill();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([3, 3]);
+
+    // Circle
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fillStyle = isHovered ? 'rgba(240, 192, 64, 0.5)' : 'rgba(255, 255, 255, 0.2)';
+    ctx.fill();
+    ctx.strokeStyle = isHovered ? 'rgba(240, 192, 64, 0.9)' : 'rgba(255, 255, 255, 0.6)';
+    ctx.lineWidth = isHovered ? 3 : 2;
     ctx.stroke();
+
+    // Plus icon
+    ctx.strokeStyle = isHovered ? 'rgba(240, 192, 64, 0.9)' : 'rgba(255, 255, 255, 0.7)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(x - 4, y);
+    ctx.lineTo(x + 4, y);
+    ctx.moveTo(x, y - 4);
+    ctx.lineTo(x, y + 4);
+    ctx.stroke();
+
     ctx.restore();
   });
 }
 
 function drawValidRoadSpots() {
   const valid = getValidRoadEdges();
+  const time = Date.now() / 1000;
+
   valid.forEach(ei => {
     const e = state.edges[ei];
     const v1 = state.vertices[e.v1];
     const v2 = state.vertices[e.v2];
+    const x1 = boardOffsetX + v1.x, y1 = boardOffsetY + v1.y;
+    const x2 = boardOffsetX + v2.x, y2 = boardOffsetY + v2.y;
+    const isHovered = state.hoveredEdge === ei;
+
     ctx.save();
+
+    // Background glow
+    if (isHovered) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = 'rgba(240, 192, 64, 0.3)';
+      ctx.lineWidth = 14;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    // Road indicator
     ctx.beginPath();
-    ctx.moveTo(boardOffsetX + v1.x, boardOffsetY + v1.y);
-    ctx.lineTo(boardOffsetX + v2.x, boardOffsetY + v2.y);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-    ctx.lineWidth = 4;
-    ctx.setLineDash([4, 4]);
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.strokeStyle = isHovered ? 'rgba(240, 192, 64, 0.8)' : 'rgba(255, 255, 255, 0.35)';
+    ctx.lineWidth = isHovered ? 7 : 5;
     ctx.lineCap = 'round';
+    const dashOffset = time * 20;
+    ctx.setLineDash([6, 6]);
+    ctx.lineDashOffset = dashOffset;
     ctx.stroke();
+
     ctx.restore();
   });
 }
@@ -993,13 +987,21 @@ function drawValidCitySpots() {
   const p = state.currentPlayer;
   state.players[p].settlements.forEach(vi => {
     const v = state.vertices[vi];
+    const x = boardOffsetX + v.x;
+    const y = boardOffsetY + v.y;
+    const isHovered = state.hoveredVertex === vi;
+
     ctx.save();
     ctx.beginPath();
-    ctx.arc(boardOffsetX + v.x, boardOffsetY + v.y, 12, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([3, 3]);
+    ctx.arc(x, y, isHovered ? 16 : 14, 0, Math.PI * 2);
+    ctx.strokeStyle = isHovered ? 'rgba(240, 192, 64, 0.9)' : 'rgba(255, 255, 255, 0.6)';
+    ctx.lineWidth = isHovered ? 3 : 2;
+    ctx.setLineDash([4, 4]);
     ctx.stroke();
+    if (isHovered) {
+      ctx.fillStyle = 'rgba(240, 192, 64, 0.2)';
+      ctx.fill();
+    }
     ctx.restore();
   });
 }
@@ -1020,117 +1022,179 @@ function getAdjacentVertices(vi) {
 function getValidSettlementVertices() {
   const p = state.currentPlayer;
   const valid = [];
-
   state.vertices.forEach((v, vi) => {
     if (v.building) return;
-
-    // Distance rule: no adjacent buildings
     const adj = getAdjacentVertices(vi);
     if (adj.some(avi => state.vertices[avi].building)) return;
-
     if (state.phase === 'play') {
-      // Must be connected to player's road
-      const connected = state.edges.some(e =>
-        e.player === p && (e.v1 === vi || e.v2 === vi)
-      );
+      const connected = state.edges.some(e => e.player === p && (e.v1 === vi || e.v2 === vi));
       if (!connected) return;
     }
-
     valid.push(vi);
   });
-
   return valid;
 }
 
 function getValidRoadEdges() {
   const p = state.currentPlayer;
   const valid = [];
-
   state.edges.forEach((e, ei) => {
     if (e.player >= 0) return;
-
     if (state.phase.startsWith('setup') && state.setupRoad) {
-      // Must connect to the just-placed settlement
       const lastSettlement = state.players[p].settlements[state.players[p].settlements.length - 1];
       if (e.v1 !== lastSettlement && e.v2 !== lastSettlement) return;
     } else {
-      // Must connect to player's existing network
       const connected =
         state.vertices[e.v1].player === p ||
         state.vertices[e.v2].player === p ||
         state.edges.some(other =>
-          other.player === p && (
-            other.v1 === e.v1 || other.v2 === e.v1 ||
-            other.v1 === e.v2 || other.v2 === e.v2
-          )
+          other.player === p && (other.v1 === e.v1 || other.v2 === e.v1 || other.v1 === e.v2 || other.v2 === e.v2)
         );
       if (!connected) return;
     }
-
     valid.push(ei);
   });
-
   return valid;
 }
 
-function handleBoardClick(event) {
-  const rect = canvas.getBoundingClientRect();
-  const mx = event.clientX - rect.left;
-  const my = event.clientY - rect.top;
+// ============================================
+// HOVER
+// ============================================
 
-  // Setup phase: settlement placement
-  if ((state.phase.startsWith('setup') && state.setupSettlement) || state.buildMode === 'settlement') {
+function handleBoardHover(event) {
+  const { x: mx, y: my } = getMousePos(event);
+  let cursor = 'default';
+  let needsRedraw = false;
+  const oldV = state.hoveredVertex;
+  const oldE = state.hoveredEdge;
+  state.hoveredVertex = -1;
+  state.hoveredEdge = -1;
+
+  const isSetupSettlement = state.phase.startsWith('setup') && state.setupSettlement;
+  const isSetupRoad = state.phase.startsWith('setup') && state.setupRoad;
+
+  // Check vertex hover
+  if (isSetupSettlement || state.buildMode === 'settlement') {
     const valid = getValidSettlementVertices();
-    let closest = -1, closestDist = 20;
+    let closest = -1, closestDist = 25;
     valid.forEach(vi => {
       const v = state.vertices[vi];
       const d = Math.hypot(boardOffsetX + v.x - mx, boardOffsetY + v.y - my);
       if (d < closestDist) { closestDist = d; closest = vi; }
     });
-
     if (closest >= 0) {
-      placeSettlement(closest);
-      return;
+      state.hoveredVertex = closest;
+      cursor = 'pointer';
     }
   }
 
-  // Setup phase: road placement
-  if ((state.phase.startsWith('setup') && state.setupRoad) || state.buildMode === 'road') {
-    const valid = getValidRoadEdges();
-    let closest = -1, closestDist = 18;
-    valid.forEach(ei => {
-      const e = state.edges[ei];
-      const v1 = state.vertices[e.v1];
-      const v2 = state.vertices[e.v2];
-      const emx = (boardOffsetX + v1.x + boardOffsetX + v2.x) / 2;
-      const emy = (boardOffsetY + v1.y + boardOffsetY + v2.y) / 2;
-      const d = Math.hypot(emx - mx, emy - my);
-      if (d < closestDist) { closestDist = d; closest = ei; }
-    });
-
-    if (closest >= 0) {
-      placeRoad(closest);
-      return;
-    }
-  }
-
-  // City upgrade
   if (state.buildMode === 'city') {
     const p = state.currentPlayer;
-    let closest = -1, closestDist = 20;
+    let closest = -1, closestDist = 25;
     state.players[p].settlements.forEach(vi => {
       const v = state.vertices[vi];
       const d = Math.hypot(boardOffsetX + v.x - mx, boardOffsetY + v.y - my);
       if (d < closestDist) { closestDist = d; closest = vi; }
     });
-
     if (closest >= 0) {
-      upgradeCity(closest);
-      return;
+      state.hoveredVertex = closest;
+      cursor = 'pointer';
     }
   }
 
-  // Robber placement
+  // Check edge hover
+  if (isSetupRoad || state.buildMode === 'road') {
+    const valid = getValidRoadEdges();
+    let closest = -1, closestDist = 22;
+    valid.forEach(ei => {
+      const e = state.edges[ei];
+      const v1 = state.vertices[e.v1];
+      const v2 = state.vertices[e.v2];
+      // Distance from point to line segment
+      const d = pointToSegmentDist(mx, my,
+        boardOffsetX + v1.x, boardOffsetY + v1.y,
+        boardOffsetX + v2.x, boardOffsetY + v2.y);
+      if (d < closestDist) { closestDist = d; closest = ei; }
+    });
+    if (closest >= 0) {
+      state.hoveredEdge = closest;
+      cursor = 'pointer';
+    }
+  }
+
+  // Robber hover
+  if (state.buildMode === 'robber') {
+    state.hexes.forEach((hex, hi) => {
+      if (hi === state.robberHex) return;
+      const d = Math.hypot(boardOffsetX + hex.x - mx, boardOffsetY + hex.y - my);
+      if (d < HEX_SIZE * 0.8) cursor = 'pointer';
+    });
+  }
+
+  canvas.style.cursor = cursor;
+
+  if (state.hoveredVertex !== oldV || state.hoveredEdge !== oldE) {
+    drawBoard();
+  }
+}
+
+function pointToSegmentDist(px, py, x1, y1, x2, y2) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const lenSq = dx * dx + dy * dy;
+  let t = ((px - x1) * dx + (py - y1) * dy) / lenSq;
+  t = Math.max(0, Math.min(1, t));
+  const cx = x1 + t * dx, cy = y1 + t * dy;
+  return Math.hypot(px - cx, py - cy);
+}
+
+// ============================================
+// CLICK
+// ============================================
+
+function handleBoardClick(event) {
+  const { x: mx, y: my } = getMousePos(event);
+
+  // Settlement placement
+  if ((state.phase.startsWith('setup') && state.setupSettlement) || state.buildMode === 'settlement') {
+    const valid = getValidSettlementVertices();
+    let closest = -1, closestDist = 25;
+    valid.forEach(vi => {
+      const v = state.vertices[vi];
+      const d = Math.hypot(boardOffsetX + v.x - mx, boardOffsetY + v.y - my);
+      if (d < closestDist) { closestDist = d; closest = vi; }
+    });
+    if (closest >= 0) { placeSettlement(closest); return; }
+  }
+
+  // Road placement
+  if ((state.phase.startsWith('setup') && state.setupRoad) || state.buildMode === 'road') {
+    const valid = getValidRoadEdges();
+    let closest = -1, closestDist = 22;
+    valid.forEach(ei => {
+      const e = state.edges[ei];
+      const v1 = state.vertices[e.v1];
+      const v2 = state.vertices[e.v2];
+      const d = pointToSegmentDist(mx, my,
+        boardOffsetX + v1.x, boardOffsetY + v1.y,
+        boardOffsetX + v2.x, boardOffsetY + v2.y);
+      if (d < closestDist) { closestDist = d; closest = ei; }
+    });
+    if (closest >= 0) { placeRoad(closest); return; }
+  }
+
+  // City upgrade
+  if (state.buildMode === 'city') {
+    const p = state.currentPlayer;
+    let closest = -1, closestDist = 25;
+    state.players[p].settlements.forEach(vi => {
+      const v = state.vertices[vi];
+      const d = Math.hypot(boardOffsetX + v.x - mx, boardOffsetY + v.y - my);
+      if (d < closestDist) { closestDist = d; closest = vi; }
+    });
+    if (closest >= 0) { upgradeCity(closest); return; }
+  }
+
+  // Robber
   if (state.buildMode === 'robber') {
     let closest = -1, closestDist = HEX_SIZE;
     state.hexes.forEach((hex, hi) => {
@@ -1138,19 +1202,22 @@ function handleBoardClick(event) {
       const d = Math.hypot(boardOffsetX + hex.x - mx, boardOffsetY + hex.y - my);
       if (d < closestDist) { closestDist = d; closest = hi; }
     });
-
     if (closest >= 0) {
       state.hexes[state.robberHex].hasRobber = false;
       state.hexes[closest].hasRobber = true;
       state.robberHex = closest;
       state.buildMode = null;
-      document.body.classList.remove('robber-mode');
       log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span> moved the robber.`);
+      updateInstruction();
       drawBoard();
       updateUI();
     }
   }
 }
+
+// ============================================
+// PLACEMENT ACTIONS
+// ============================================
 
 function placeSettlement(vi) {
   const p = state.currentPlayer;
@@ -1158,10 +1225,10 @@ function placeSettlement(vi) {
   state.vertices[vi].player = p;
   state.players[p].settlements.push(vi);
   state.players[p].vp++;
+  state.hoveredVertex = -1;
 
   log(`<span class="highlight">${PLAYER_NAMES[p]}</span> built a settlement.`);
 
-  // In setup phase 2, give resources for second settlement
   if (state.phase === 'setup2') {
     state.vertices[vi].hexes.forEach(hi => {
       const hex = state.hexes[hi];
@@ -1176,7 +1243,6 @@ function placeSettlement(vi) {
     state.setupRoad = true;
     log(`<span class="highlight">${PLAYER_NAMES[p]}</span>: Place a road.`);
   } else {
-    // Pay resources
     state.players[p].resources.wood--;
     state.players[p].resources.brick--;
     state.players[p].resources.wheat--;
@@ -1185,6 +1251,7 @@ function placeSettlement(vi) {
   }
 
   checkWin();
+  updateInstruction();
   drawBoard();
   updateUI();
 }
@@ -1193,6 +1260,7 @@ function placeRoad(ei) {
   const p = state.currentPlayer;
   state.edges[ei].player = p;
   state.players[p].roads.push(ei);
+  state.hoveredEdge = -1;
 
   log(`<span class="highlight">${PLAYER_NAMES[p]}</span> built a road.`);
 
@@ -1205,6 +1273,7 @@ function placeRoad(ei) {
     state.buildMode = null;
   }
 
+  updateInstruction();
   drawBoard();
   updateUI();
 }
@@ -1218,9 +1287,11 @@ function upgradeCity(vi) {
   state.players[p].resources.wheat -= 2;
   state.players[p].resources.ore -= 3;
   state.buildMode = null;
+  state.hoveredVertex = -1;
 
   log(`<span class="highlight">${PLAYER_NAMES[p]}</span> built a city!`);
   checkWin();
+  updateInstruction();
   drawBoard();
   updateUI();
 }
@@ -1240,6 +1311,7 @@ function advanceSetup() {
     state.hasRolled = false;
     log(`Setup complete! <span class="highlight">${PLAYER_NAMES[0]}</span>'s turn — roll the dice.`);
     showToast('Setup complete! Let\'s play!');
+    updateInstruction();
     updateUI();
     return;
   }
@@ -1247,8 +1319,13 @@ function advanceSetup() {
   state.setupSettlement = true;
   state.setupRoad = false;
   log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span>: Place a settlement.`);
+  updateInstruction();
   updateUI();
 }
+
+// ============================================
+// TURN ACTIONS
+// ============================================
 
 function rollDice() {
   if (state.phase !== 'play' || state.hasRolled) return;
@@ -1259,7 +1336,6 @@ function rollDice() {
   state.diceRoll = total;
   state.hasRolled = true;
 
-  // Animate dice
   const die1 = document.getElementById('die1');
   const die2 = document.getElementById('die2');
   die1.classList.add('rolling');
@@ -1275,12 +1351,8 @@ function rollDice() {
   log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span> rolled ${d1} + ${d2} = <span class="highlight">${total}</span>`);
 
   if (total === 7) {
-    // Robber
     log(`Robber activated! Move the robber.`);
     state.buildMode = 'robber';
-    document.body.classList.add('robber-mode');
-
-    // Discard if > 7 cards (simplified: just log it)
     state.players.forEach((p, i) => {
       const count = Object.values(p.resources).reduce((a, b) => a + b, 0);
       if (count > 7) {
@@ -1296,31 +1368,25 @@ function rollDice() {
       }
     });
   } else {
-    // Distribute resources
-    state.hexes.forEach((hex, hi) => {
+    state.hexes.forEach((hex) => {
       if (hex.number === total && !hex.hasRobber && hex.resource !== 'desert') {
         hex.vertices.forEach(vi => {
           const v = state.vertices[vi];
-          if (v.building === 'settlement') {
-            state.players[v.player].resources[hex.resource]++;
-          } else if (v.building === 'city') {
-            state.players[v.player].resources[hex.resource] += 2;
-          }
+          if (v.building === 'settlement') state.players[v.player].resources[hex.resource]++;
+          else if (v.building === 'city') state.players[v.player].resources[hex.resource] += 2;
         });
       }
     });
   }
 
+  updateInstruction();
   updateUI();
   drawBoard();
 }
 
 function startBuild(type) {
-  if (state.buildMode === type) {
-    state.buildMode = null;
-  } else {
-    state.buildMode = type;
-  }
+  state.buildMode = state.buildMode === type ? null : type;
+  updateInstruction();
   drawBoard();
   updateUI();
 }
@@ -1332,6 +1398,8 @@ function endTurn() {
   state.hasRolled = false;
   state.buildMode = null;
   state.diceRoll = null;
+  state.hoveredVertex = -1;
+  state.hoveredEdge = -1;
 
   document.getElementById('die1').textContent = '–';
   document.getElementById('die2').textContent = '–';
@@ -1339,13 +1407,13 @@ function endTurn() {
 
   log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span>'s turn.`);
   showToast(`${PLAYER_NAMES[state.currentPlayer]}'s Turn`);
+  updateInstruction();
   updateUI();
   drawBoard();
 }
 
 function canAfford(type) {
-  const p = state.players[state.currentPlayer];
-  const r = p.resources;
+  const r = state.players[state.currentPlayer].resources;
   switch (type) {
     case 'road': return r.wood >= 1 && r.brick >= 1;
     case 'settlement': return r.wood >= 1 && r.brick >= 1 && r.wheat >= 1 && r.sheep >= 1;
@@ -1356,7 +1424,7 @@ function canAfford(type) {
 
 function checkWin() {
   state.players.forEach((p, i) => {
-    if (p.vp >= 10 && !state.winner) {
+    if (p.vp >= 10 && state.winner === null) {
       state.winner = i;
       showToast(`🎉 ${PLAYER_NAMES[i]} wins with ${p.vp} Victory Points!`);
       log(`🎉 <span class="highlight">${PLAYER_NAMES[i]} wins the game!</span>`);
@@ -1385,10 +1453,7 @@ function closeTrade() {
 
 function renderTrade() {
   const p = state.players[state.currentPlayer];
-  const giveDiv = document.getElementById('tradeGive');
-  const recDiv = document.getElementById('tradeReceive');
-
-  giveDiv.innerHTML = RESOURCES.map(r => `
+  document.getElementById('tradeGive').innerHTML = RESOURCES.map(r => `
     <div class="trade-row">
       <label>${RES_EMOJI[r]} ${r} (${p.resources[r]})</label>
       <div class="trade-controls">
@@ -1398,8 +1463,7 @@ function renderTrade() {
       </div>
     </div>
   `).join('');
-
-  recDiv.innerHTML = RESOURCES.map(r => `
+  document.getElementById('tradeReceive').innerHTML = RESOURCES.map(r => `
     <div class="trade-row">
       <label>${RES_EMOJI[r]} ${r}</label>
       <div class="trade-controls">
@@ -1415,8 +1479,7 @@ function adjustTrade(side, res, amount) {
   const obj = side === 'give' ? tradeGive : tradeReceive;
   obj[res] = Math.max(0, obj[res] + amount);
   if (side === 'give') {
-    const p = state.players[state.currentPlayer];
-    obj[res] = Math.min(obj[res], Math.floor(p.resources[res] / 4) * 4);
+    obj[res] = Math.min(obj[res], Math.floor(state.players[state.currentPlayer].resources[res] / 4) * 4);
   }
   renderTrade();
 }
@@ -1424,30 +1487,16 @@ function adjustTrade(side, res, amount) {
 function executeTrade() {
   const totalGive = Object.values(tradeGive).reduce((a, b) => a + b, 0);
   const totalReceive = Object.values(tradeReceive).reduce((a, b) => a + b, 0);
-
-  if (totalGive === 0 || totalReceive === 0) {
-    showToast('Select resources to trade');
-    return;
-  }
-
-  if (totalGive / 4 !== totalReceive) {
-    showToast('Trade must be 4:1 ratio');
-    return;
-  }
-
+  if (totalGive === 0 || totalReceive === 0) { showToast('Select resources to trade'); return; }
+  if (totalGive / 4 !== totalReceive) { showToast('Trade must be 4:1 ratio'); return; }
   const p = state.players[state.currentPlayer];
   for (const r of RESOURCES) {
-    if (tradeGive[r] > p.resources[r]) {
-      showToast('Not enough resources');
-      return;
-    }
+    if (tradeGive[r] > p.resources[r]) { showToast('Not enough resources'); return; }
   }
-
   for (const r of RESOURCES) {
     p.resources[r] -= tradeGive[r];
     p.resources[r] += tradeReceive[r];
   }
-
   log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span> traded with the bank.`);
   closeTrade();
   updateUI();
@@ -1458,7 +1507,6 @@ function executeTrade() {
 // ============================================
 
 function updateUI() {
-  // Players
   const pc = document.getElementById('players-container');
   pc.innerHTML = state.players.map((p, i) => `
     <div class="player-card ${i === state.currentPlayer ? 'active' : ''}">
@@ -1483,7 +1531,6 @@ function updateUI() {
     </div>
   `).join('');
 
-  // Buttons
   const isPlay = state.phase === 'play';
   const rolled = state.hasRolled;
   document.getElementById('rollBtn').disabled = !isPlay || rolled || state.winner;
@@ -1492,11 +1539,11 @@ function updateUI() {
   document.getElementById('buildSettlementBtn').disabled = !isPlay || !rolled || !canAfford('settlement') || state.winner;
   document.getElementById('buildCityBtn').disabled = !isPlay || !rolled || !canAfford('city') || state.winner;
 
-  // Highlight active build mode
   ['Road', 'Settlement', 'City'].forEach(type => {
     const btn = document.getElementById(`build${type}Btn`);
-    btn.style.borderColor = state.buildMode === type.toLowerCase()
-      ? 'rgba(218, 165, 32, 0.8)' : '';
+    const active = state.buildMode === type.toLowerCase();
+    btn.style.borderColor = active ? 'rgba(218, 165, 32, 0.8)' : '';
+    btn.style.background = active ? 'rgba(218, 165, 32, 0.15)' : '';
   });
 }
 
@@ -1516,17 +1563,51 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
+// ESC to cancel build mode
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && state.buildMode && state.buildMode !== 'robber') {
+    state.buildMode = null;
+    updateInstruction();
+    drawBoard();
+    updateUI();
+  }
+});
+
+// Animation loop for pulsing indicators
+let animFrame;
+function animLoop() {
+  const needsAnim =
+    (state.phase.startsWith('setup') && (state.setupSettlement || state.setupRoad)) ||
+    state.buildMode === 'settlement' ||
+    state.buildMode === 'road' ||
+    state.buildMode === 'city';
+
+  if (needsAnim) drawBoard();
+  animFrame = requestAnimationFrame(animLoop);
+}
+
 // ============================================
 // INIT
 // ============================================
 
-window.addEventListener('load', initBoard);
+window.addEventListener('load', () => {
+  initBoard();
+  animLoop();
+});
+
 window.addEventListener('resize', () => {
   const area = document.getElementById('boardArea');
-  canvas.width = area.clientWidth;
-  canvas.height = area.clientHeight;
-  boardOffsetX = canvas.width / 2;
-  boardOffsetY = canvas.height / 2;
+  const dpr = window.devicePixelRatio || 1;
+  const w = area.clientWidth;
+  const h = area.clientHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  boardOffsetX = w / 2;
+  boardOffsetY = h / 2;
   drawBoard();
 });
 </script>

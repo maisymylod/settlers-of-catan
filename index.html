@@ -109,7 +109,7 @@
   }
 
   .player-card.active::before {
-    content: '▶';
+    content: '\25B6';
     position: absolute;
     right: 10px;
     top: 10px;
@@ -177,6 +177,25 @@
     margin-top: 6px;
     font-size: 11px;
     opacity: 0.7;
+  }
+
+  .card-count {
+    font-size: 12px;
+    opacity: 0.7;
+    padding: 4px 0;
+  }
+
+  .lr-badge {
+    display: inline-block;
+    background: rgba(218, 165, 32, 0.3);
+    border: 1px solid rgba(218, 165, 32, 0.5);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 10px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: var(--wheat-light);
+    margin-left: 4px;
   }
 
   .board-area {
@@ -391,6 +410,50 @@
   .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
   .modal-btns .btn { flex: 1; }
 
+  .steal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .steal-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 1px solid rgba(240, 228, 208, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--parchment);
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s;
+    width: 100%;
+  }
+
+  .steal-option-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(240, 228, 208, 0.35);
+  }
+
+  .steal-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .discard-info {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 16px;
+    color: var(--parchment);
+    opacity: 0.8;
+  }
+
   .toast {
     position: fixed;
     top: 20px;
@@ -411,7 +474,6 @@
 
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* Instruction banner */
   .instruction-banner {
     position: absolute;
     top: 12px;
@@ -477,39 +539,42 @@
     <div class="section-label">Dice</div>
     <div class="dice-area">
       <div class="dice-row">
-        <div class="die" id="die1">–</div>
-        <div class="die" id="die2">–</div>
+        <div class="die" id="die1">&ndash;</div>
+        <div class="die" id="die2">&ndash;</div>
       </div>
       <div class="dice-total" id="diceTotal"></div>
-      <button class="btn primary" id="rollBtn" onclick="rollDice()">Roll Dice</button>
+      <button class="btn primary" id="rollBtn" onclick="rollDice()" title="Roll Dice (R)">Roll Dice</button>
     </div>
 
     <div class="section-label" style="margin-top:6px">Build</div>
     <div class="build-options">
-      <button class="btn build-btn btn-sm" id="buildRoadBtn" onclick="startBuild('road')" disabled>
-        <span>🛤️ Road</span>
-        <span class="build-cost">🪵🧱</span>
+      <button class="btn build-btn btn-sm" id="buildRoadBtn" onclick="startBuild('road')" disabled title="Build Road (1)">
+        <span>&#x1F6E4;&#xFE0F; Road</span>
+        <span class="build-cost">&#x1FAB5;&#x1F9F1;</span>
       </button>
-      <button class="btn build-btn btn-sm" id="buildSettlementBtn" onclick="startBuild('settlement')" disabled>
-        <span>🏠 Settlement</span>
-        <span class="build-cost">🪵🧱🌾🐑</span>
+      <button class="btn build-btn btn-sm" id="buildSettlementBtn" onclick="startBuild('settlement')" disabled title="Build Settlement (2)">
+        <span>&#x1F3E0; Settlement</span>
+        <span class="build-cost">&#x1FAB5;&#x1F9F1;&#x1F33E;&#x1F411;</span>
       </button>
-      <button class="btn build-btn btn-sm" id="buildCityBtn" onclick="startBuild('city')" disabled>
-        <span>🏙️ City</span>
-        <span class="build-cost">🌾🌾⛏️⛏️⛏️</span>
+      <button class="btn build-btn btn-sm" id="buildCityBtn" onclick="startBuild('city')" disabled title="Build City (3)">
+        <span>&#x1F3D9;&#xFE0F; City</span>
+        <span class="build-cost">&#x1F33E;&#x1F33E;&#x26CF;&#xFE0F;&#x26CF;&#xFE0F;&#x26CF;&#xFE0F;</span>
       </button>
     </div>
 
-    <button class="btn btn-sm" onclick="openTrade()">🔄 Bank Trade (4:1)</button>
-    <button class="btn btn-sm" id="endTurnBtn" onclick="endTurn()" disabled>End Turn</button>
+    <button class="btn btn-sm" id="tradeBankBtn" onclick="openTrade()" title="Bank Trade (T)">&#x1F504; Bank Trade (4:1)</button>
+    <button class="btn btn-sm" id="endTurnBtn" onclick="endTurn()" disabled title="End Turn (E)">End Turn</button>
 
     <div class="section-label" style="margin-top:6px">Game Log</div>
     <div class="log-area">
       <div class="log-messages" id="logMessages"></div>
     </div>
+
+    <button class="btn btn-sm" onclick="confirmNewGame()">New Game</button>
   </div>
 </div>
 
+<!-- Trade Modal -->
 <div class="modal-overlay" id="tradeModal">
   <div class="modal">
     <h3>Bank Trade (4:1)</h3>
@@ -524,6 +589,27 @@
   </div>
 </div>
 
+<!-- Steal Modal -->
+<div class="modal-overlay" id="stealModal">
+  <div class="modal">
+    <h3>Steal a Resource</h3>
+    <p class="discard-info">Choose a player to steal from:</p>
+    <div class="steal-options" id="stealOptions"></div>
+  </div>
+</div>
+
+<!-- Discard Modal -->
+<div class="modal-overlay" id="discardModal">
+  <div class="modal">
+    <h3 id="discardTitle">Discard Cards</h3>
+    <p class="discard-info" id="discardInfo"></p>
+    <div id="discardResources"></div>
+    <div class="modal-btns">
+      <button class="btn primary" id="discardConfirmBtn" onclick="executeDiscard()" disabled>Confirm</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -534,7 +620,7 @@
 const RESOURCES = ['wood', 'brick', 'wheat', 'sheep', 'ore'];
 const RES_COLORS = { wood: '#2d5a27', brick: '#c1440e', wheat: '#daa520', sheep: '#8db600', ore: '#5a5a6e', desert: '#d2b48c' };
 const RES_LIGHT = { wood: '#4a8c3f', brick: '#e8621a', wheat: '#f0c040', sheep: '#a8d600', ore: '#7a7a90', desert: '#e8d4b8' };
-const RES_EMOJI = { wood: '🪵', brick: '🧱', wheat: '🌾', sheep: '🐑', ore: '⛏️' };
+const RES_EMOJI = { wood: '\u{1FAB5}', brick: '\u{1F9F1}', wheat: '\u{1F33E}', sheep: '\u{1F411}', ore: '\u26CF\uFE0F' };
 const PLAYER_COLORS = ['#d64045', '#4a90d9', '#45a049', '#e8922f'];
 const PLAYER_NAMES = ['Red', 'Blue', 'Green', 'Orange'];
 const HEX_ROWS = [3, 4, 5, 4, 3];
@@ -547,37 +633,59 @@ const TILE_RESOURCES = [
   'wood','sheep'
 ];
 
-const TILE_NUMBERS = [10,2,9, 12,6,4,10, 9,11,3,8,8,0, 3,4,5,5, 6,11];
+const STANDARD_NUMBERS = [10,2,9,12,6,4,10,9,11,3,8,8,3,4,5,5,6,11];
+
+const MAX_SETTLEMENTS = 5;
+const MAX_CITIES = 4;
+const MAX_ROADS = 15;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 // ============================================
 // STATE
 // ============================================
 
-let state = {
-  phase: 'setup1',
-  currentPlayer: 0,
-  players: [],
-  hexes: [],
-  vertices: [],
-  edges: [],
-  robberHex: -1,
-  diceRoll: null,
-  hasRolled: false,
-  buildMode: null,
-  winner: null,
-  setupSettlement: false,
-  setupRoad: false,
-  turnOrder: [0, 1, 2, 3, 3, 2, 1, 0],
-  setupIndex: 0,
-  hoveredVertex: -1,
-  hoveredEdge: -1,
-};
+function createInitialState() {
+  return {
+    phase: 'setup1',
+    currentPlayer: 0,
+    players: [],
+    hexes: [],
+    vertices: [],
+    edges: [],
+    robberHex: -1,
+    diceRoll: null,
+    hasRolled: false,
+    buildMode: null,
+    winner: null,
+    setupSettlement: false,
+    setupRoad: false,
+    turnOrder: [0, 1, 2, 3, 3, 2, 1, 0],
+    setupIndex: 0,
+    hoveredVertex: -1,
+    hoveredEdge: -1,
+    discardQueue: [],
+    pendingRobber: false,
+    longestRoadPlayer: -1,
+  };
+}
+
+let state = createInitialState();
 
 // ============================================
 // GEOMETRY
 // ============================================
 
 const HEX_SIZE = 52;
+const HEX_HORIZ = HEX_SIZE * 1.52;
+const HEX_VERT = HEX_SIZE * Math.sqrt(3) * 0.98;
 let hexCenters = [];
 let canvas, ctx;
 let boardOffsetX = 0, boardOffsetY = 0;
@@ -597,7 +705,6 @@ function initBoard() {
   const area = document.getElementById('boardArea');
   const dpr = window.devicePixelRatio || 1;
 
-  // Set canvas size to match container at device pixel ratio
   const w = area.clientWidth;
   const h = area.clientHeight;
   canvas.width = w * dpr;
@@ -610,9 +717,11 @@ function initBoard() {
   boardOffsetX = w / 2;
   boardOffsetY = h / 2;
 
+  // Shuffle tile resources for random board
+  const shuffledResources = shuffle(TILE_RESOURCES);
+
   // Calculate hex centers
   hexCenters = [];
-  const hh = HEX_SIZE * Math.sqrt(3);
   let idx = 0;
   const totalRows = HEX_ROWS.length;
 
@@ -620,21 +729,25 @@ function initBoard() {
     const count = HEX_ROWS[row];
     const rowOffset = (count - 1) / 2;
     for (let col = 0; col < count; col++) {
-      const x = (col - rowOffset) * (HEX_SIZE * 1.52);
-      const y = (row - (totalRows - 1) / 2) * (hh * 0.98);
+      const x = (col - rowOffset) * HEX_HORIZ;
+      const y = (row - (totalRows - 1) / 2) * HEX_VERT;
       hexCenters.push({ x, y, idx });
       idx++;
     }
   }
 
-  // Build hex data
-  state.hexes = hexCenters.map((center, i) => ({
-    x: center.x, y: center.y,
-    resource: TILE_RESOURCES[i],
-    number: TILE_NUMBERS[i],
-    hasRobber: TILE_RESOURCES[i] === 'desert',
-    vertices: [],
-  }));
+  // Build hex data with shuffled resources
+  let numIdx = 0;
+  state.hexes = hexCenters.map((center, i) => {
+    const resource = shuffledResources[i];
+    return {
+      x: center.x, y: center.y,
+      resource,
+      number: resource === 'desert' ? 0 : STANDARD_NUMBERS[numIdx++],
+      hasRobber: resource === 'desert',
+      vertices: [],
+    };
+  });
 
   state.robberHex = state.hexes.findIndex(h => h.resource === 'desert');
 
@@ -691,10 +804,13 @@ function initBoard() {
   state.setupSettlement = true;
   state.setupRoad = false;
 
+  // Remove old listeners before adding (safe for game reset)
+  canvas.removeEventListener('click', handleBoardClick);
+  canvas.removeEventListener('mousemove', handleBoardHover);
   canvas.addEventListener('click', handleBoardClick);
   canvas.addEventListener('mousemove', handleBoardHover);
 
-  log(`Game started! Setup phase begins.`);
+  log('Game started! Setup phase begins.');
   log(`<span class="highlight">${PLAYER_NAMES[0]}</span>: Place a settlement.`);
   updateInstruction();
   updateUI();
@@ -711,7 +827,9 @@ function updateInstruction() {
   const name = PLAYER_NAMES[p];
 
   if (state.winner !== null) {
-    banner.textContent = `🎉 ${PLAYER_NAMES[state.winner]} wins!`;
+    banner.textContent = `${PLAYER_NAMES[state.winner]} wins!`;
+  } else if (state.pendingRobber || state.discardQueue.length > 0) {
+    banner.textContent = 'Players must discard cards...';
   } else if (state.phase.startsWith('setup') && state.setupSettlement) {
     banner.textContent = `${name}: Click a glowing spot to place a settlement`;
   } else if (state.phase.startsWith('setup') && state.setupRoad) {
@@ -721,7 +839,7 @@ function updateInstruction() {
   } else if (state.buildMode) {
     banner.textContent = `${name}: Click to place ${state.buildMode} (ESC to cancel)`;
   } else if (state.phase === 'play' && !state.hasRolled) {
-    banner.textContent = `${name}'s turn — Roll the dice →`;
+    banner.textContent = `${name}'s turn \u2014 Roll the dice \u2192`;
   } else if (state.phase === 'play' && state.hasRolled) {
     banner.textContent = `${name}: Build, trade, or end turn`;
   }
@@ -788,7 +906,7 @@ function drawHex(hex, index) {
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  const icons = { wood: '🌲', brick: '🧱', wheat: '🌾', sheep: '🐑', ore: '⛰️', desert: '🏜️' };
+  const icons = { wood: '\u{1F332}', brick: '\u{1F9F1}', wheat: '\u{1F33E}', sheep: '\u{1F411}', ore: '\u26F0\uFE0F', desert: '\u{1F3DC}\uFE0F' };
   ctx.font = '22px serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -824,7 +942,7 @@ function drawHex(hex, index) {
   if (hex.hasRobber) {
     ctx.font = '28px serif';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🏴‍☠️', 0, hex.number > 0 ? -14 : 4);
+    ctx.fillText('\u{1F3F4}\u200D\u2620\uFE0F', 0, hex.number > 0 ? -14 : 4);
   }
 
   ctx.restore();
@@ -834,7 +952,6 @@ function drawRoad(edge) {
   const v1 = state.vertices[edge.v1];
   const v2 = state.vertices[edge.v2];
   ctx.save();
-  // Shadow
   ctx.beginPath();
   ctx.moveTo(boardOffsetX + v1.x, boardOffsetY + v1.y);
   ctx.lineTo(boardOffsetX + v2.x, boardOffsetY + v2.y);
@@ -842,7 +959,6 @@ function drawRoad(edge) {
   ctx.lineWidth = 9;
   ctx.lineCap = 'round';
   ctx.stroke();
-  // Road
   ctx.beginPath();
   ctx.moveTo(boardOffsetX + v1.x, boardOffsetY + v1.y);
   ctx.lineTo(boardOffsetX + v2.x, boardOffsetY + v2.y);
@@ -872,7 +988,6 @@ function drawBuilding(vertex) {
     ctx.strokeStyle = 'rgba(0,0,0,0.5)';
     ctx.lineWidth = 1.5;
     ctx.stroke();
-    // White roof highlight
     ctx.beginPath();
     ctx.moveTo(x, y - 11);
     ctx.lineTo(x + 8, y - 2);
@@ -913,13 +1028,11 @@ function drawValidSettlementSpots() {
 
     ctx.save();
 
-    // Glow
     ctx.beginPath();
     ctx.arc(x, y, size + 4, 0, Math.PI * 2);
     ctx.fillStyle = isHovered ? 'rgba(240, 192, 64, 0.25)' : 'rgba(255, 255, 255, 0.1)';
     ctx.fill();
 
-    // Circle
     ctx.beginPath();
     ctx.arc(x, y, size, 0, Math.PI * 2);
     ctx.fillStyle = isHovered ? 'rgba(240, 192, 64, 0.5)' : 'rgba(255, 255, 255, 0.2)';
@@ -928,7 +1041,6 @@ function drawValidSettlementSpots() {
     ctx.lineWidth = isHovered ? 3 : 2;
     ctx.stroke();
 
-    // Plus icon
     ctx.strokeStyle = isHovered ? 'rgba(240, 192, 64, 0.9)' : 'rgba(255, 255, 255, 0.7)';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -956,7 +1068,6 @@ function drawValidRoadSpots() {
 
     ctx.save();
 
-    // Background glow
     if (isHovered) {
       ctx.beginPath();
       ctx.moveTo(x1, y1);
@@ -967,7 +1078,6 @@ function drawValidRoadSpots() {
       ctx.stroke();
     }
 
-    // Road indicator
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -1021,6 +1131,8 @@ function getAdjacentVertices(vi) {
 
 function getValidSettlementVertices() {
   const p = state.currentPlayer;
+  const player = state.players[p];
+  if (state.phase === 'play' && player.settlements.length >= MAX_SETTLEMENTS) return [];
   const valid = [];
   state.vertices.forEach((v, vi) => {
     if (v.building) return;
@@ -1037,11 +1149,13 @@ function getValidSettlementVertices() {
 
 function getValidRoadEdges() {
   const p = state.currentPlayer;
+  const player = state.players[p];
+  if (state.phase === 'play' && player.roads.length >= MAX_ROADS) return [];
   const valid = [];
   state.edges.forEach((e, ei) => {
     if (e.player >= 0) return;
     if (state.phase.startsWith('setup') && state.setupRoad) {
-      const lastSettlement = state.players[p].settlements[state.players[p].settlements.length - 1];
+      const lastSettlement = player.settlements[player.settlements.length - 1];
       if (e.v1 !== lastSettlement && e.v2 !== lastSettlement) return;
     } else {
       const connected =
@@ -1058,13 +1172,95 @@ function getValidRoadEdges() {
 }
 
 // ============================================
+// LONGEST ROAD
+// ============================================
+
+function calculateLongestRoad(playerIdx) {
+  const player = state.players[playerIdx];
+  if (player.roads.length === 0) return 0;
+
+  // Build adjacency list for this player's road network
+  const adj = {};
+  player.roads.forEach(ei => {
+    const edge = state.edges[ei];
+    if (!adj[edge.v1]) adj[edge.v1] = [];
+    if (!adj[edge.v2]) adj[edge.v2] = [];
+    adj[edge.v1].push({ to: edge.v2, edge: ei });
+    adj[edge.v2].push({ to: edge.v1, edge: ei });
+  });
+
+  let maxLength = 0;
+  const vertices = Object.keys(adj).map(Number);
+
+  vertices.forEach(startV => {
+    const visited = new Set();
+    function dfs(v, length) {
+      if (length > maxLength) maxLength = length;
+      const neighbors = adj[v] || [];
+      for (const { to, edge } of neighbors) {
+        if (visited.has(edge)) continue;
+        // Opponent buildings block road continuity
+        const blocked = state.vertices[to].building && state.vertices[to].player !== playerIdx;
+        visited.add(edge);
+        if (!blocked) {
+          dfs(to, length + 1);
+        } else {
+          if (length + 1 > maxLength) maxLength = length + 1;
+        }
+        visited.delete(edge);
+      }
+    }
+    dfs(startV, 0);
+  });
+
+  return maxLength;
+}
+
+function updateLongestRoad() {
+  const lengths = state.players.map((_, i) => calculateLongestRoad(i));
+  const maxLen = Math.max(...lengths);
+
+  if (maxLen < 5) {
+    if (state.longestRoadPlayer >= 0) {
+      state.players[state.longestRoadPlayer].vp -= 2;
+      log(`<span class="highlight">${PLAYER_NAMES[state.longestRoadPlayer]}</span> lost Longest Road.`);
+      state.longestRoadPlayer = -1;
+    }
+    return;
+  }
+
+  const candidates = [];
+  lengths.forEach((len, i) => {
+    if (len === maxLen) candidates.push(i);
+  });
+
+  if (candidates.length === 1) {
+    const newHolder = candidates[0];
+    if (newHolder !== state.longestRoadPlayer) {
+      if (state.longestRoadPlayer >= 0) {
+        state.players[state.longestRoadPlayer].vp -= 2;
+      }
+      state.longestRoadPlayer = newHolder;
+      state.players[newHolder].vp += 2;
+      log(`<span class="highlight">${PLAYER_NAMES[newHolder]}</span> has Longest Road! (+2 VP)`);
+    }
+  } else {
+    // Tie: current holder keeps it if among tied, otherwise no one has it
+    if (state.longestRoadPlayer >= 0 && !candidates.includes(state.longestRoadPlayer)) {
+      state.players[state.longestRoadPlayer].vp -= 2;
+      log(`<span class="highlight">${PLAYER_NAMES[state.longestRoadPlayer]}</span> lost Longest Road.`);
+      state.longestRoadPlayer = -1;
+    }
+  }
+}
+
+// ============================================
 // HOVER
 // ============================================
 
 function handleBoardHover(event) {
   const { x: mx, y: my } = getMousePos(event);
-  let cursor = 'default';
-  let needsRedraw = false;
+  let cursor = state.buildMode === 'robber' ? 'crosshair' : 'default';
   const oldV = state.hoveredVertex;
   const oldE = state.hoveredEdge;
   state.hoveredVertex = -1;
@@ -1110,7 +1306,6 @@ function handleBoardHover(event) {
       const e = state.edges[ei];
       const v1 = state.vertices[e.v1];
       const v2 = state.vertices[e.v2];
-      // Distance from point to line segment
       const d = pointToSegmentDist(mx, my,
         boardOffsetX + v1.x, boardOffsetY + v1.y,
         boardOffsetX + v2.x, boardOffsetY + v2.y);
@@ -1152,6 +1347,9 @@ function pointToSegmentDist(px, py, x1, y1, x2, y2) {
 // ============================================
 
 function handleBoardClick(event) {
+  if (state.winner !== null) return;
+  if (state.pendingRobber) return;
+
   const { x: mx, y: my } = getMousePos(event);
 
   // Settlement placement
@@ -1208,11 +1406,143 @@ function handleBoardClick(event) {
       state.robberHex = closest;
       state.buildMode = null;
       log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span> moved the robber.`);
+      handleRobberSteal(closest);
       updateInstruction();
       drawBoard();
       updateUI();
     }
   }
+}
+
+// ============================================
+// ROBBER STEAL
+// ============================================
+
+function handleRobberSteal(hexIdx) {
+  const p = state.currentPlayer;
+  const targets = new Set();
+  state.hexes[hexIdx].vertices.forEach(vi => {
+    const v = state.vertices[vi];
+    if (v.building && v.player !== p) {
+      const totalRes = Object.values(state.players[v.player].resources).reduce((a, b) => a + b, 0);
+      if (totalRes > 0) targets.add(v.player);
+    }
+  });
+
+  const targetList = [...targets];
+  if (targetList.length === 0) {
+    log('No one to steal from.');
+  } else if (targetList.length === 1) {
+    stealFrom(targetList[0]);
+  } else {
+    showStealChoice(targetList);
+  }
+}
+
+function stealFrom(targetPlayer) {
+  const target = state.players[targetPlayer];
+  const available = [];
+  for (const r of RESOURCES) {
+    for (let i = 0; i < target.resources[r]; i++) {
+      available.push(r);
+    }
+  }
+  if (available.length === 0) return;
+
+  const stolen = available[Math.floor(Math.random() * available.length)];
+  target.resources[stolen]--;
+  state.players[state.currentPlayer].resources[stolen]++;
+  log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span> stole from <span class="highlight">${PLAYER_NAMES[targetPlayer]}</span>.`);
+  updateUI();
+}
+
+function showStealChoice(targets) {
+  document.getElementById('stealOptions').innerHTML = targets.map(pi => `
+    <button class="steal-option-btn" onclick="selectStealTarget(${pi})">
+      <div class="steal-dot" style="background:${PLAYER_COLORS[pi]}"></div>
+      <span>${PLAYER_NAMES[pi]}</span>
+    </button>
+  `).join('');
+  document.getElementById('stealModal').classList.add('show');
+}
+
+function selectStealTarget(pi) {
+  document.getElementById('stealModal').classList.remove('show');
+  stealFrom(pi);
+}
+
+// ============================================
+// DISCARD ON 7
+// ============================================
+
+let discardSelections = { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 };
+let discardRequired = 0;
+let discardPlayer = -1;
+
+function promptNextDiscard() {
+  if (state.discardQueue.length === 0) {
+    if (state.pendingRobber) {
+      state.pendingRobber = false;
+      state.buildMode = 'robber';
+      log('Move the robber.');
+      updateInstruction();
+      drawBoard();
+      updateUI();
+    }
+    return;
+  }
+
+  const pi = state.discardQueue.shift();
+  discardPlayer = pi;
+  const p = state.players[pi];
+  const total = Object.values(p.resources).reduce((a, b) => a + b, 0);
+  discardRequired = Math.floor(total / 2);
+  discardSelections = { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 };
+  showDiscardModal();
+}
+
+function showDiscardModal() {
+  const p = state.players[discardPlayer];
+  document.getElementById('discardTitle').textContent = `${PLAYER_NAMES[discardPlayer]} \u2014 Discard Cards`;
+
+  const selected = Object.values(discardSelections).reduce((a, b) => a + b, 0);
+  document.getElementById('discardInfo').textContent = `Select ${discardRequired} cards to discard (${selected}/${discardRequired} selected)`;
+
+  document.getElementById('discardResources').innerHTML = RESOURCES.map(r => `
+    <div class="trade-row">
+      <label>${RES_EMOJI[r]} ${r} (${p.resources[r]})</label>
+      <div class="trade-controls">
+        <button onclick="adjustDiscard('${r}', -1)">\u2212</button>
+        <span>${discardSelections[r]}</span>
+        <button onclick="adjustDiscard('${r}', 1)">+</button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('discardConfirmBtn').disabled = selected !== discardRequired;
+  document.getElementById('discardModal').classList.add('show');
+}
+
+function adjustDiscard(res, amount) {
+  const p = state.players[discardPlayer];
+  let newVal = discardSelections[res] + amount;
+  newVal = Math.max(0, Math.min(p.resources[res], newVal));
+  const totalOthers = Object.values(discardSelections).reduce((a, b) => a + b, 0) - discardSelections[res];
+  newVal = Math.min(newVal, discardRequired - totalOthers);
+  discardSelections[res] = newVal;
+  showDiscardModal();
+}
+
+function executeDiscard() {
+  const p = state.players[discardPlayer];
+  for (const r of RESOURCES) {
+    p.resources[r] -= discardSelections[r];
+  }
+  const total = Object.values(discardSelections).reduce((a, b) => a + b, 0);
+  log(`<span class="highlight">${PLAYER_NAMES[discardPlayer]}</span> discarded ${total} cards.`);
+  document.getElementById('discardModal').classList.remove('show');
+  updateUI();
+  promptNextDiscard();
 }
 
 // ============================================
@@ -1273,6 +1603,8 @@ function placeRoad(ei) {
     state.buildMode = null;
   }
 
+  updateLongestRoad();
+  checkWin();
   updateInstruction();
   drawBoard();
   updateUI();
@@ -1290,6 +1622,7 @@ function upgradeCity(vi) {
   state.hoveredVertex = -1;
 
   log(`<span class="highlight">${PLAYER_NAMES[p]}</span> built a city!`);
+  updateLongestRoad();
   checkWin();
   updateInstruction();
   drawBoard();
@@ -1309,7 +1642,7 @@ function advanceSetup() {
     state.phase = 'play';
     state.currentPlayer = 0;
     state.hasRolled = false;
-    log(`Setup complete! <span class="highlight">${PLAYER_NAMES[0]}</span>'s turn — roll the dice.`);
+    log(`Setup complete! <span class="highlight">${PLAYER_NAMES[0]}</span>'s turn \u2014 roll the dice.`);
     showToast('Setup complete! Let\'s play!');
     updateInstruction();
     updateUI();
@@ -1328,7 +1661,7 @@ function advanceSetup() {
 // ============================================
 
 function rollDice() {
-  if (state.phase !== 'play' || state.hasRolled) return;
+  if (state.phase !== 'play' || state.hasRolled || state.winner !== null) return;
 
   const d1 = Math.floor(Math.random() * 6) + 1;
   const d2 = Math.floor(Math.random() * 6) + 1;
@@ -1351,40 +1684,68 @@ function rollDice() {
   log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span> rolled ${d1} + ${d2} = <span class="highlight">${total}</span>`);
 
   if (total === 7) {
-    log(`Robber activated! Move the robber.`);
-    state.buildMode = 'robber';
+    // Build discard queue for players with >7 cards
+    state.discardQueue = [];
     state.players.forEach((p, i) => {
       const count = Object.values(p.resources).reduce((a, b) => a + b, 0);
       if (count > 7) {
-        const discard = Math.floor(count / 2);
-        let discarded = 0;
-        for (const res of RESOURCES) {
-          while (p.resources[res] > 0 && discarded < discard) {
-            p.resources[res]--;
-            discarded++;
-          }
-        }
-        log(`${PLAYER_NAMES[i]} discarded ${discard} cards.`);
+        state.discardQueue.push(i);
       }
     });
+
+    if (state.discardQueue.length > 0) {
+      state.pendingRobber = true;
+      log('Robber activated! Players must discard first.');
+      updateInstruction();
+      updateUI();
+      promptNextDiscard();
+    } else {
+      state.buildMode = 'robber';
+      log('Robber activated! Move the robber.');
+      updateInstruction();
+      updateUI();
+      drawBoard();
+    }
   } else {
+    // Distribute resources with feedback
+    const received = {};
     state.hexes.forEach((hex) => {
       if (hex.number === total && !hex.hasRobber && hex.resource !== 'desert') {
         hex.vertices.forEach(vi => {
           const v = state.vertices[vi];
-          if (v.building === 'settlement') state.players[v.player].resources[hex.resource]++;
-          else if (v.building === 'city') state.players[v.player].resources[hex.resource] += 2;
+          if (v.building === 'settlement') {
+            state.players[v.player].resources[hex.resource]++;
+            if (!received[v.player]) received[v.player] = {};
+            received[v.player][hex.resource] = (received[v.player][hex.resource] || 0) + 1;
+          } else if (v.building === 'city') {
+            state.players[v.player].resources[hex.resource] += 2;
+            if (!received[v.player]) received[v.player] = {};
+            received[v.player][hex.resource] = (received[v.player][hex.resource] || 0) + 2;
+          }
         });
       }
     });
-  }
 
-  updateInstruction();
-  updateUI();
-  drawBoard();
+    let anyProduced = false;
+    state.players.forEach((p, i) => {
+      if (received[i]) {
+        anyProduced = true;
+        const parts = Object.entries(received[i]).map(([r, count]) => `${count} ${r}`);
+        log(`<span class="highlight">${PLAYER_NAMES[i]}</span> received ${parts.join(', ')}.`);
+      }
+    });
+    if (!anyProduced) {
+      log('No resources produced.');
+    }
+
+    updateInstruction();
+    updateUI();
+    drawBoard();
+  }
 }
 
 function startBuild(type) {
+  if (state.winner !== null) return;
   state.buildMode = state.buildMode === type ? null : type;
   updateInstruction();
   drawBoard();
@@ -1392,7 +1753,8 @@ function startBuild(type) {
 }
 
 function endTurn() {
-  if (state.phase !== 'play' || !state.hasRolled) return;
+  if (state.phase !== 'play' || !state.hasRolled || state.winner !== null) return;
+  if (state.buildMode === 'robber' || state.pendingRobber) return;
 
   state.currentPlayer = (state.currentPlayer + 1) % 4;
   state.hasRolled = false;
@@ -1401,8 +1763,8 @@ function endTurn() {
   state.hoveredVertex = -1;
   state.hoveredEdge = -1;
 
-  document.getElementById('die1').textContent = '–';
-  document.getElementById('die2').textContent = '–';
+  document.getElementById('die1').textContent = '\u2013';
+  document.getElementById('die2').textContent = '\u2013';
   document.getElementById('diceTotal').textContent = '';
 
   log(`<span class="highlight">${PLAYER_NAMES[state.currentPlayer]}</span>'s turn.`);
@@ -1413,11 +1775,12 @@ function endTurn() {
 }
 
 function canAfford(type) {
-  const r = state.players[state.currentPlayer].resources;
+  const p = state.players[state.currentPlayer];
+  const r = p.resources;
   switch (type) {
-    case 'road': return r.wood >= 1 && r.brick >= 1;
-    case 'settlement': return r.wood >= 1 && r.brick >= 1 && r.wheat >= 1 && r.sheep >= 1;
-    case 'city': return r.wheat >= 2 && r.ore >= 3;
+    case 'road': return r.wood >= 1 && r.brick >= 1 && p.roads.length < MAX_ROADS;
+    case 'settlement': return r.wood >= 1 && r.brick >= 1 && r.wheat >= 1 && r.sheep >= 1 && p.settlements.length < MAX_SETTLEMENTS;
+    case 'city': return r.wheat >= 2 && r.ore >= 3 && p.cities.length < MAX_CITIES && p.settlements.length > 0;
   }
   return false;
 }
@@ -1426,8 +1789,8 @@ function checkWin() {
   state.players.forEach((p, i) => {
     if (p.vp >= 10 && state.winner === null) {
       state.winner = i;
-      showToast(`🎉 ${PLAYER_NAMES[i]} wins with ${p.vp} Victory Points!`);
-      log(`🎉 <span class="highlight">${PLAYER_NAMES[i]} wins the game!</span>`);
+      showToast(`${PLAYER_NAMES[i]} wins with ${p.vp} Victory Points!`);
+      log(`<span class="highlight">${PLAYER_NAMES[i]} wins the game!</span>`);
     }
   });
 }
@@ -1440,7 +1803,7 @@ let tradeGive = { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 };
 let tradeReceive = { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 };
 
 function openTrade() {
-  if (state.phase !== 'play' || !state.hasRolled) return;
+  if (state.phase !== 'play' || !state.hasRolled || state.winner !== null) return;
   tradeGive = { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 };
   tradeReceive = { wood: 0, brick: 0, wheat: 0, sheep: 0, ore: 0 };
   renderTrade();
@@ -1457,7 +1820,7 @@ function renderTrade() {
     <div class="trade-row">
       <label>${RES_EMOJI[r]} ${r} (${p.resources[r]})</label>
       <div class="trade-controls">
-        <button onclick="adjustTrade('give','${r}',-4)">−</button>
+        <button onclick="adjustTrade('give','${r}',-4)">\u2212</button>
         <span>${tradeGive[r]}</span>
         <button onclick="adjustTrade('give','${r}',4)">+</button>
       </div>
@@ -1467,7 +1830,7 @@ function renderTrade() {
     <div class="trade-row">
       <label>${RES_EMOJI[r]} ${r}</label>
       <div class="trade-controls">
-        <button onclick="adjustTrade('receive','${r}',-1)">−</button>
+        <button onclick="adjustTrade('receive','${r}',-1)">\u2212</button>
         <span>${tradeReceive[r]}</span>
         <button onclick="adjustTrade('receive','${r}',1)">+</button>
       </div>
@@ -1503,41 +1866,91 @@ function executeTrade() {
 }
 
 // ============================================
+// NEW GAME
+// ============================================
+
+function confirmNewGame() {
+  if (state.winner !== null) {
+    resetGame();
+    return;
+  }
+  if (confirm('Start a new game? Current progress will be lost.')) {
+    resetGame();
+  }
+}
+
+function resetGame() {
+  if (animFrame) cancelAnimationFrame(animFrame);
+
+  state = createInitialState();
+
+  document.getElementById('logMessages').innerHTML = '';
+  document.getElementById('die1').textContent = '\u2013';
+  document.getElementById('die2').textContent = '\u2013';
+  document.getElementById('diceTotal').textContent = '';
+
+  document.getElementById('tradeModal').classList.remove('show');
+  document.getElementById('stealModal').classList.remove('show');
+  document.getElementById('discardModal').classList.remove('show');
+
+  initBoard();
+  animLoop();
+}
+
+// ============================================
 // UI
 // ============================================
 
 function updateUI() {
   const pc = document.getElementById('players-container');
-  pc.innerHTML = state.players.map((p, i) => `
-    <div class="player-card ${i === state.currentPlayer ? 'active' : ''}">
-      <div class="player-header">
-        <div class="player-dot" style="background:${p.color}"></div>
-        <span class="player-name">${p.name}</span>
-        <span class="player-vp">${p.vp}</span>
-      </div>
-      <div class="player-resources">
+  const gameWon = state.winner !== null;
+
+  pc.innerHTML = state.players.map((p, i) => {
+    const isCurrentOrRevealed = i === state.currentPlayer || gameWon;
+    const totalCards = Object.values(p.resources).reduce((a, b) => a + b, 0);
+    const lrBadge = state.longestRoadPlayer === i ? '<span class="lr-badge">LR</span>' : '';
+
+    let resourcesHtml;
+    if (isCurrentOrRevealed) {
+      resourcesHtml = `<div class="player-resources">
         ${RESOURCES.map(r => `
           <span class="res-badge">
             <span class="res-icon">${RES_EMOJI[r]}</span>
             <span>${p.resources[r]}</span>
           </span>
         `).join('')}
+      </div>`;
+    } else {
+      resourcesHtml = `<div class="card-count">${totalCards} card${totalCards !== 1 ? 's' : ''}</div>`;
+    }
+
+    return `
+    <div class="player-card ${i === state.currentPlayer ? 'active' : ''}">
+      <div class="player-header">
+        <div class="player-dot" style="background:${p.color}"></div>
+        <span class="player-name">${p.name}${lrBadge}</span>
+        <span class="player-vp">${p.vp}</span>
       </div>
+      ${resourcesHtml}
       <div class="player-buildings">
-        <span>🏠 ${p.settlements.length}</span>
-        <span>🏙️ ${p.cities.length}</span>
-        <span>🛤️ ${p.roads.length}</span>
+        <span>\u{1F3E0} ${p.settlements.length}/${MAX_SETTLEMENTS}</span>
+        <span>\u{1F3D9}\uFE0F ${p.cities.length}/${MAX_CITIES}</span>
+        <span>\u{1F6E4}\uFE0F ${p.roads.length}/${MAX_ROADS}</span>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 
   const isPlay = state.phase === 'play';
   const rolled = state.hasRolled;
-  document.getElementById('rollBtn').disabled = !isPlay || rolled || state.winner;
-  document.getElementById('endTurnBtn').disabled = !isPlay || !rolled || state.buildMode === 'robber' || state.winner;
-  document.getElementById('buildRoadBtn').disabled = !isPlay || !rolled || !canAfford('road') || state.winner;
-  document.getElementById('buildSettlementBtn').disabled = !isPlay || !rolled || !canAfford('settlement') || state.winner;
-  document.getElementById('buildCityBtn').disabled = !isPlay || !rolled || !canAfford('city') || state.winner;
+  const won = state.winner !== null;
+  const acting = state.buildMode === 'robber' || state.pendingRobber;
+
+  document.getElementById('rollBtn').disabled = !isPlay || rolled || won;
+  document.getElementById('endTurnBtn').disabled = !isPlay || !rolled || acting || won;
+  document.getElementById('buildRoadBtn').disabled = !isPlay || !rolled || !canAfford('road') || won || acting;
+  document.getElementById('buildSettlementBtn').disabled = !isPlay || !rolled || !canAfford('settlement') || won || acting;
+  document.getElementById('buildCityBtn').disabled = !isPlay || !rolled || !canAfford('city') || won || acting;
+  document.getElementById('tradeBankBtn').disabled = !isPlay || !rolled || won || acting;
 
   ['Road', 'Settlement', 'City'].forEach(type => {
     const btn = document.getElementById(`build${type}Btn`);
@@ -1563,13 +1976,36 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// ESC to cancel build mode
+// ============================================
+// KEYBOARD SHORTCUTS
+// ============================================
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && state.buildMode && state.buildMode !== 'robber') {
-    state.buildMode = null;
-    updateInstruction();
-    drawBoard();
-    updateUI();
+  const modalOpen = document.getElementById('tradeModal').classList.contains('show') ||
+                    document.getElementById('stealModal').classList.contains('show') ||
+                    document.getElementById('discardModal').classList.contains('show');
+
+  if (e.key === 'Escape') {
+    if (document.getElementById('tradeModal').classList.contains('show')) {
+      closeTrade();
+    } else if (state.buildMode && state.buildMode !== 'robber') {
+      state.buildMode = null;
+      updateInstruction();
+      drawBoard();
+      updateUI();
+    }
+    return;
+  }
+
+  if (modalOpen) return;
+
+  switch (e.key.toLowerCase()) {
+    case 'r': rollDice(); break;
+    case 'e': endTurn(); break;
+    case 't': openTrade(); break;
+    case '1': startBuild('road'); break;
+    case '2': startBuild('settlement'); break;
+    case '3': startBuild('city'); break;
   }
 });
 

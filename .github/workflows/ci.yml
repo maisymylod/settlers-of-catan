@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Game logic tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install pytest
+      - name: Tests
+        run: pytest -q
+
+  static:
+    name: HTML validity + Java build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install the validator
+        run: pip install html5validator==0.4.2
+      - name: HTML is valid
+        # CSS messages are filtered: the bundled checker is years out of date
+        # and reports inset and backdrop-filter as nonexistent properties.
+        run: html5validator --root . --ignore 'CSS:'
+      - name: DiceSimulator compiles
+        run: javac -d /tmp/classes DiceSimulator.java
